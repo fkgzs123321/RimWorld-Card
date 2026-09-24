@@ -142,6 +142,8 @@
             '<div class="rw-cx-body"><div class="rw-cx-nav" id="cx-nav"></div><div class="rw-cx-content" id="cx-content"></div></div>' +
             '</div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-codex'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.addEventListener('click', function (e) {
             if (e.target === p) p.classList.remove('open');
             var nb = e.target.closest('.rw-cx-nav-btn');
