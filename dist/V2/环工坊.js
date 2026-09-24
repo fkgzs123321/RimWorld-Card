@@ -278,6 +278,8 @@
             '<span style="flex:1"></span><button class="rw-btn" id="ws-close">✕</button></div>' +
             '<div class="rw-ws-tabs" id="ws-tabs"></div><div class="rw-ws-body" id="ws-body"></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-workshop'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#ws-close').onclick = function () { p.classList.remove('open'); };
         p.querySelector('#ws-gm-switch').onclick = function () {
             WS.gm = !WS.gm;
