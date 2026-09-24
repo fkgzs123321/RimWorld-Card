@@ -139,6 +139,8 @@
             '<span style="flex:1"></span><button class="rw-btn" id="hus-close">✕</button></div>' +
             '<div class="rw-hus2-body"><div class="hus-col" id="hus-wild"></div><div class="hus-col" id="hus-pets"></div></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-hus'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#hus-close').onclick = function () { p.classList.remove('open'); };
         p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
         return p;
