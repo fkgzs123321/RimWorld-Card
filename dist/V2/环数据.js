@@ -327,7 +327,7 @@
     RW.codex = {
         open: function (cat, kw) {
             var p = ensurePanel();
-            p.classList.add('open');
+                        try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-codex"); } catch (e) {}            p.classList.add('open');
             if (cat) currentCat = cat;
             renderNav();
             if (kw != null) { var si = document.getElementById('cx-search'); if (si) si.value = kw; }
