@@ -217,7 +217,7 @@ select.td-sel { background: var(--rw-bg, #151a21); color: var(--rw-text, #d8e2ec
 
     TD.open = function () {
         if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; }
-        ensurePanel().classList.add('open');
+                try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-td"); } catch (e) {}        ensurePanel().classList.add('open');
         renderAll();
     };
     try { console.log('%c[环贸易] ✅ 已注册', 'color:#d4b45a'); } catch (e) {}
