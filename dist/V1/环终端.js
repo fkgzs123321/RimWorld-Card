@@ -465,8 +465,9 @@
         var canvas = document.getElementById('rw-map-canvas');
         if (!canvas) return;
         MapEngine.canvas = canvas;
-        MapEngine.ctx = canvas.getContext('2d');
-        if (!MapEngine.tiles) MapEngine.generate(readState().世界 && readState().世界.设置 && readState().世界.设置.种子);
+        MapEngine.ctx = canvas.getContext && canvas.getContext('2d');
+        if (!MapEngine.ctx) return;
+        var __rs = readState(); if (!__rs || !__rs.世界) { MapEngine.generate(null); } else MapEngine.generate(__rs.世界 && __rs.世界.设置 && __rs.世界.设置.种子);
         MapEngine.render();
         canvas.addEventListener('mousemove', function (e) {
             var r = canvas.getBoundingClientRect();
@@ -906,6 +907,10 @@
         var content = document.getElementById('rw-content');
         if (!content) return;
         var st = readState();
+        if (!st || !st.世界) {
+            content.innerHTML = '<div class="rw-card"><h3>⏳ 状态未就绪</h3><div style="font-size:12px;color:var(--rw-dim);line-height:1.8">MVU 变量尚未初始化。请先发送一条消息（任意内容），MVU 框架会写入初始状态；之后重新打开终端即可。</div></div>';
+            return;
+        }
         var fns = { '地图': [renderMapTab, bindMapTab], '殖民者': renderColonistTab, '持有': renderHoldTab, '任务': renderTaskTab, '研究': renderResearchTab, '模组': renderModTab, '日志': renderLogTab, '世界': renderWorldTab };
         var f = fns[currentTab];
         content.innerHTML = typeof f === 'object' ? f[0](st) : f(st);
