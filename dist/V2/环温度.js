@@ -172,7 +172,7 @@
                 p.querySelector('#th-close').onclick = function () { p.classList.remove('open'); };
                 p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
             }
-            p.classList.add('open');
+                        try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-th"); } catch (e) {}            p.classList.add('open');
             render();
         },
         currentTemp: currentTemp,
