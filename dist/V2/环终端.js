@@ -465,8 +465,9 @@
         var canvas = document.getElementById('rw-map-canvas');
         if (!canvas) return;
         MapEngine.canvas = canvas;
-        MapEngine.ctx = canvas.getContext('2d');
-        if (!MapEngine.tiles) MapEngine.generate(readState().世界 && readState().世界.设置 && readState().世界.设置.种子);
+        MapEngine.ctx = canvas.getContext && canvas.getContext('2d');
+        if (!MapEngine.ctx) return;
+        var __rs = readState(); if (!__rs || !__rs.世界) { MapEngine.generate(null); } else MapEngine.generate(__rs.世界 && __rs.世界.设置 && __rs.世界.设置.种子);
         MapEngine.render();
         canvas.addEventListener('mousemove', function (e) {
             var r = canvas.getBoundingClientRect();
@@ -659,7 +660,7 @@
             var id = list[i][0], desc = list[i][1], dft = list[i][2];
             var on = mods[id] != null ? mods[id] : dft;
             html += '<div class="rw-mod-row"><div class="md-name">' + esc(id.replace(/^(DLC|工坊)_/, '')) + '<small>' + esc(desc) + '</small></div>' +
-                '<div style="display:flex;align-items:center"><div class="rw-switch ' + (on ? 'on' : '') + '" data-mod="' + esc(id) + '"></div><span class="rw-tag ' + (on ? 'good' : '') + '" style="margin-left:6px;font-size:10px">' + (on ? '已安装' : '已卸载') + '</span></div></div>';
+                '<div style="display:flex;align-items:center"><div class="rw-switch ' + (on ? 'on' : '') + '" data-mod="' + esc(id) + '"></div><span class="rw-tag ' + (on ? 'good' : '') + '" style="margin-left:6px;font-size:10px">' + (on ? '已启用' : '已停用') + '</span></div></div>';
         }
         html += '</div>';
         return html;
@@ -743,7 +744,7 @@
                 s.模组 = s.模组 || {}; s.模组.已安装 = s.模组.已安装 || {};
                 s.模组.已安装[id] = s.模组.已安装[id] ? 0 : 1;
             }, '模组开关：' + id);
-            toast(ok ? (id + ' 已' + ((sw.classList.contains('on') ? '卸载' : '安装')) + '，相关条目已' + (sw.classList.contains('on') ? '移出' : '进入') + ' prompt') : '写回失败', ok ? 'good' : 'bad');
+            toast(ok ? (id + ' 已' + (sw.classList.contains('on') ? '停用' : '启用') + '（对应内容' + (sw.classList.contains('on') ? '不再' : '开始') + '进入 AI 上下文）') : '写回失败', ok ? 'good' : 'bad');
             renderCurrent();
         });
         // 研究指派（写 研究.当前项目，进度由环结算每半天推进）
@@ -906,6 +907,10 @@
         var content = document.getElementById('rw-content');
         if (!content) return;
         var st = readState();
+        if (!st || !st.世界) {
+            content.innerHTML = '<div class="rw-card"><h3>⏳ 状态未就绪</h3><div style="font-size:12px;color:var(--rw-dim);line-height:1.8">MVU 变量尚未初始化。请先发送一条消息（任意内容），MVU 框架会写入初始状态；之后重新打开终端即可。</div></div>';
+            return;
+        }
         var fns = { '地图': [renderMapTab, bindMapTab], '殖民者': renderColonistTab, '持有': renderHoldTab, '任务': renderTaskTab, '研究': renderResearchTab, '模组': renderModTab, '日志': renderLogTab, '世界': renderWorldTab };
         var f = fns[currentTab];
         content.innerHTML = typeof f === 'object' ? f[0](st) : f(st);
@@ -950,6 +955,8 @@
         mask.classList.add('open');
     }
     RW.openModal = openModal;
+        /* 终端模态点背景关闭 */
+        (function () { var mk = document.querySelector('.rw-modal-mask'); if (mk) mk.addEventListener('click', function (e) { if (e.target === mk) mk.classList.remove('open'); }); })();
 
     function togglePanel() {
         var p = document.getElementById('rw-panel');
