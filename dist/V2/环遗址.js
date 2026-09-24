@@ -201,7 +201,7 @@
 
     EXP.open = function () {
         if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; }
-        ensurePanel().classList.add('open');
+                try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-rn"); } catch (e) {}        ensurePanel().classList.add('open');
         render();
     };
     try { console.log('%c[环遗址] ✅ 已注册', 'color:#b4a4d4'); } catch (e) {}
