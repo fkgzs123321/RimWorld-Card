@@ -514,6 +514,7 @@
     /* ═══════════ 对外 API ═══════════ */
 
     RW.combatPanel.open = function () {
+        try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels('rw-combat-overlay'); } catch (e) {}
         var ov = ensureOverlay();
         ov.classList.add('open');
         CP.phase = 'config'; CP.log = []; CP.result = null; CP.units = null;
