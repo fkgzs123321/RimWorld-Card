@@ -20,6 +20,7 @@
         try { if (window.parent && window.parent !== window && window.parent.document) return window.parent; } catch (e) {}
         return window;
     })();
+    var document = HOST.document; // 父窗口重定向（面板可见性）
     var RW = HOST.Rimworld = HOST.Rimworld || {};
     function log(tag, msg) { try { console.log('%c[环地图] ' + tag, 'color:#7fc94f;font-weight:bold', msg); } catch (e) {} }
 
