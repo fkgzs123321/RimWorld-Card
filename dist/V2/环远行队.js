@@ -115,6 +115,8 @@
             '<div class="cv-col" id="cv-load"></div>' +
             '<div class="cv-col" id="cv-route"></div></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-cv'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#cv-close').onclick = function () { p.classList.remove('open'); };
         p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
         return p;
