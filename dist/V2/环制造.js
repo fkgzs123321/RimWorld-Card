@@ -295,7 +295,7 @@
     CB.open = function () {
         var st = readState();
         if (!st) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; }
-        ensurePanel().classList.add('open');
+                try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-craft"); } catch (e) {}        ensurePanel().classList.add('open');
         CB.sel = null; CB.worker = null;
         renderList(st);
         renderDetail(st);
