@@ -270,7 +270,7 @@
 
     CV.open = function () {
         if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; }
-        ensurePanel().classList.add('open');
+                try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-cv"); } catch (e) {}        ensurePanel().classList.add('open');
         renderAll();
     };
     try { console.log('%c[环远行队] ✅ 已注册', 'color:#5fb4e5'); } catch (e) {}
