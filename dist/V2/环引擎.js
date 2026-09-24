@@ -17,6 +17,23 @@
 // ════════════════════════════════════════════════════════════
 
 const 环引擎 = (function () {
+    /* lodash 兜底（酒馆助手注入 _；缺失环境用最小实现） */
+
+    /* 全局面板互斥管理器（UI 脚本共用；excludeId=不关自己） */
+    if (typeof globalThis !== 'undefined') {
+        globalThis.Rimworld = globalThis.Rimworld || {};
+        globalThis.Rimworld.PANEL_IDS = ['rw-craft', 'rw-hus', 'rw-workshop', 'rw-wizard', 'rw-combat-overlay', 'rw-codex', 'rw-logc', 'rw-th', 'rw-social', 'rw-farm', 'rw-td', 'rw-cv', 'rw-cmm', 'rw-rn', 'rw-panel'];
+        globalThis.Rimworld.closeAllPanels = function (excludeId) {
+            for (var i = 0; i < globalThis.Rimworld.PANEL_IDS.length; i++) {
+                var pid = globalThis.Rimworld.PANEL_IDS[i];
+                if (pid === excludeId) continue;
+                try {
+                    var el = document.getElementById(pid);
+                    if (el) el.classList.remove('open');
+                } catch (e) {}
+            }
+        };
+    }    if (typeof _ === "undefined") { globalThis._ = { cloneDeep: function (o) { return JSON.parse(JSON.stringify(o)); }, clamp: function (v, a, b) { return Math.max(a, Math.min(b, v)); } }; }
 
   // ═══════════ 随机 · LCG ═══════════
   // state' = (1664525 × state + 1013904223) mod 2^32
