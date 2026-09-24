@@ -314,7 +314,7 @@
                 bind();
             }
             buildGraph();
-            p.classList.add('open');
+                        try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-social"); } catch (e) {}            p.classList.add('open');
             startAnim();
             showDetail('user');
         },
