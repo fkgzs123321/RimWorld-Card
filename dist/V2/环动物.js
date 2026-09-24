@@ -284,6 +284,6 @@
         render();
     }
 
-    RW.husbandry = { open: function () { if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; } ensurePanel().classList.add('open'); render(); }, TAMABLE: TAMABLE };
+    RW.husbandry = { open: function () { if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; } try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels('rw-hus'); } catch (e) {} ensurePanel().classList.add('open'); render(); }, TAMABLE: TAMABLE };
     try { console.log('%c[环驯养] ✅ 已注册', 'color:#6fbf5f'); } catch (e) {}
 })();
