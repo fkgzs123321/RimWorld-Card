@@ -77,6 +77,8 @@
             '<span style="flex:1"></span><button class="rw-btn" id="cmm-close">✕</button></div>' +
             '<div class="rw-cmm2-body" id="cmm-body"></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-cmm'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#cmm-close').onclick = function () { p.classList.remove('open'); };
         p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
         return p;
