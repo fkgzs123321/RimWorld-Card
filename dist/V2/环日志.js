@@ -109,6 +109,8 @@
             '<select id="lc-view"><option>列表</option><option>时间轴</option></select></div>' +
             '<div class="rw-lc-body" id="lc-body"></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-logc'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#lc-close').onclick = function () { p.classList.remove('open'); };
         p.querySelector('#lc-search').addEventListener('input', function () { searchKw = this.value; renderBody(); });
         p.querySelector('#lc-view').addEventListener('change', function () { viewMode = this.value; renderBody(); });
