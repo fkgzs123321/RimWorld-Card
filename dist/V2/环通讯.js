@@ -177,6 +177,6 @@
         };
     }
 
-    RW.comms = { open: function () { if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; } ensurePanel().classList.add('open'); render(); } };
+    RW.comms = { open: function () { if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; } try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels('rw-cmm'); } catch (e) {} ensurePanel().classList.add('open'); render(); } };
     try { console.log('%c[环通讯台] ✅ 已注册', 'color:#5fd4b4'); } catch (e) {}
 })();
