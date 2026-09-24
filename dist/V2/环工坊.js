@@ -396,7 +396,7 @@
     }
 
     WS.open = function () {
-        ensurePanel().classList.add('open');
+                try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-workshop"); } catch (e) {}        ensurePanel().classList.add('open');
         renderBody();
     };
     log('✅', '工坊工具已注册（数值编辑器/事件触发器/时间控制，GM 开关防护）');
