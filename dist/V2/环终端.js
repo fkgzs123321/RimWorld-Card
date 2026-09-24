@@ -961,6 +961,7 @@
     function togglePanel() {
         var p = document.getElementById('rw-panel');
         if (!p) return;
+        try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels('rw-panel'); } catch (e) {}
         p.classList.toggle('open');
         if (p.classList.contains('open')) { renderTop(); renderCurrent(); }
     }
