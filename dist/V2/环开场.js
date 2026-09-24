@@ -342,7 +342,7 @@
     }
 
     RW.wizard = {
-        open: function () { ensurePanel().classList.add('open'); renderBody(); },
+        open: function () { try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels('rw-wizard'); } catch (e) {} ensurePanel().classList.add('open'); renderBody(); },
         SEL: SEL,
     };
     try { console.log('%c[环开场] ✅ 开局向导已注册（三组参数+5 流派预设+8 biome）', 'color:#e8a33d'); } catch (e) {}
