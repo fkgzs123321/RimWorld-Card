@@ -124,6 +124,8 @@
             '<span style="flex:1"></span><button class="rw-btn" id="cf-close">✕</button></div>' +
             '<div class="rw-cf-body"><div class="rw-cf-list" id="cf-list"></div><div class="rw-cf-main" id="cf-main"></div></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-craft'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#cf-close').onclick = function () { p.classList.remove('open'); };
         p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
         return p;
