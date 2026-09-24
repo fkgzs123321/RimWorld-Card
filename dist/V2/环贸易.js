@@ -104,6 +104,8 @@ select.td-sel { background: var(--rw-bg, #151a21); color: var(--rw-text, #d8e2ec
             '<span style="flex:1"></span><button class="rw-btn" id="td-close">✕</button></div>' +
             '<div class="td-body"><div class="td-col" id="td-buy"></div><div class="td-col" id="td-sell"></div></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-td'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#td-close').onclick = function () { p.classList.remove('open'); };
         p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
         p.querySelector('#td-faction').addEventListener('change', function () { TD.派系 = this.value; renderAll(); });
