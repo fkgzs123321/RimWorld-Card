@@ -17,6 +17,8 @@
 // ════════════════════════════════════════════════════════════
 
 const 环引擎 = (function () {
+    /* lodash 兜底（酒馆助手注入 _；缺失环境用最小实现） */
+    if (typeof _ === "undefined") { globalThis._ = { cloneDeep: function (o) { return JSON.parse(JSON.stringify(o)); }, clamp: function (v, a, b) { return Math.max(a, Math.min(b, v)); } }; }
 
   // ═══════════ 随机 · LCG ═══════════
   // state' = (1664525 × state + 1013904223) mod 2^32
