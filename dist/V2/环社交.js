@@ -307,6 +307,8 @@
                     '<div class="rw-so-body"><div class="rw-so-canvas-wrap"><canvas id="so-canvas"></canvas></div>' +
                     '<div class="rw-so-side"><div class="so-detail" id="so-detail"><div class="so-detail"><h3>点节点看详情</h3></div></div></div></div></div>';
                 document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-social'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
                 p.querySelector('#so-close').onclick = function () { p.classList.remove('open'); };
                 p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
                 bind();
