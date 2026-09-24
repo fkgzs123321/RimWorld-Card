@@ -259,7 +259,7 @@
 
     farmState.open = function () {
         if (!readState()) { if (RW.toast) RW.toast('状态未就绪', 'bad'); return; }
-        ensurePanel().classList.add('open');
+                try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels("rw-farm"); } catch (e) {}        ensurePanel().classList.add('open');
         renderAll();
     };
     try { console.log('%c[环种植] ✅ 已注册', 'color:#6fbf5f'); } catch (e) {}
