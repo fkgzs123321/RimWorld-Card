@@ -9,6 +9,43 @@
 (function () {
     'use strict';
 
+    /* ═══════════ 队员编辑数据（原版式：背景/特质/技能可重掷）═══════════ */
+    var 特质池 = ['乐观', '悲观', '夜猫子', '晨型人', '贪吃', '工作狂', '懒惰', '神经质', '钢铁意志', '温柔', '刺头', '羞涩', '话痨', '独行侠', '太聪明', '好记性', '快速学习', '绿拇指', '稳健射手', '乱枪打鸟', '斗殴者', '美丽', '温室人'];
+    var 背景池 = {
+        '轨道站邦联': ['环形居住区水培舱里长大的「庭院儿童」', '轮机见习，耳朵会听轴承的哭声', '医护学徒，签了六年服务期'],
+        '热带农业殖民地': ['六岁下田十岁嫁接，旱灾那年看父亲把水让给秧苗', '果品经纪人，会看人像看瓜', '疫病防治员，救过整片果园'],
+        '边缘拆解场': ['七岁拆旧家电换糖，师傅说每个螺丝都有脾气', '在报废飞船里玩捉迷藏，有个孩子再没出来', '黑市零件贩，什么价钱都懂'],
+        '舰队遗族': ['在战舰走廊出生，制服大两号，军歌当摇篮曲', '通讯兵，听过太多最后的呼叫', '宪兵，规则刻进骨头'],
+        '荒野游牧': ['跟着兽群走，五岁摔断手臂学会的第一件事是忍', '驯兽师，能跟灰狼讨价还价', '向导，从不走回头路'],
+        '工业城邦': ['在流水线轰鸣里睡着过，图书馆废弃层是秘密基地', '车床工，双手稳得能穿针', '工会协调员，会算罢工成本'],
+    };
+    var CREW = [
+        { 名: '薇卡·奥斯特洛娃', 圈: '轨道站邦联', 固有: '夜猫子、太聪明、温室人' },
+        { 名: '凯奥·里贝罗', 圈: '热带农业殖民地', 固有: '绿拇指、温柔、勤勉' },
+        { 名: '祝小满', 圈: '边缘拆解场', 固有: '话痨、贪吃、夜猫子' },
+        { 名: '你（<user>）', 圈: '任选', 固有: '', 玩家: true },
+    ];
+    function 抽背景(圈) {
+        var keys = 圈 === '任选' ? Object.keys(背景池) : [圈];
+        var k = keys[Math.floor(Math.random() * keys.length)];
+        var arr = 背景池[k];
+        return '【' + k + '】' + arr[Math.floor(Math.random() * arr.length)];
+    }
+    function 抽特质() {
+        var a = 特质池.slice(), out = [];
+        for (var i = 0; i < 3; i++) out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+        return out.join('、');
+    }
+    function 技能倾向() {
+        var s = ['射击', '格斗', '建造', '采矿', '烹饪', '种植', '畜牧', '手工', '艺术', '医疗', '社交', '智识'];
+        return s[Math.floor(Math.random() * s.length)] + '、' + s[Math.floor(Math.random() * s.length)];
+    }
+    for (var ci = 0; ci < CREW.length; ci++) {
+        CREW[ci].背景 = 抽背景(CREW[ci].圈);
+        CREW[ci].特质 = CREW[ci].固有 || 抽特质();
+        CREW[ci].技能 = 技能倾向();
+    }
+
     var HOST = (function () {
         try { if (window.parent && window.parent !== window && window.parent.document) return window.parent; } catch (e) {}
         return window;
@@ -124,6 +161,18 @@
             renderBody();
             if (RW.toast) RW.toast('已全随机', 'warn');
         };
+        // 队员重掷（事件委托）
+        p.addEventListener('click', function (e) {
+            var btn = e.target.closest('.wz-reroll');
+            if (!btn) return;
+            var c = CREW[parseInt(btn.getAttribute('data-crew'), 10)];
+            if (!c) return;
+            c.背景 = 抽背景(c.圈);
+            c.特质 = c.固有 || 抽特质();
+            c.技能 = 技能倾向();
+            renderBody();
+            if (RW.toast) RW.toast(c.名 + ' 已重掷', 'good');
+        });
         return p;
     }
 
