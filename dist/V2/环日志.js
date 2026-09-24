@@ -199,6 +199,6 @@
         }
     }
 
-    RW.logCenter = { open: function (s) { ensurePanel().classList.add('open'); if (s) currentStream = s; renderTabs(); renderBody(); } };
+    RW.logCenter = { open: function (s) { try { if (HOST.Rimworld && HOST.Rimworld.closeAllPanels) HOST.Rimworld.closeAllPanels('rw-logc'); } catch (e) {} ensurePanel().classList.add('open'); if (s) currentStream = s; renderTabs(); renderBody(); } };
     try { console.log('%c[环日志中心] ✅ 已注册', 'color:#e8a33d'); } catch (e) {}
 })();
