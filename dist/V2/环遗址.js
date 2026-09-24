@@ -86,6 +86,8 @@
             '<span style="flex:1"></span><button class="rw-btn" id="rn-close">✕</button></div>' +
             '<div class="rw-rn2-body" id="rn-body"></div></div>';
         document.body.appendChild(p);
+        /* 点遮罩关闭 */
+        (function () { var el0 = document.getElementById('rw-rn'); if (el0) el0.addEventListener('click', function (e) { if (e.target === el0) el0.classList.remove('open'); }); })();
         p.querySelector('#rn-close').onclick = function () { p.classList.remove('open'); };
         p.addEventListener('click', function (e) { if (e.target === p) p.classList.remove('open'); });
         return p;
